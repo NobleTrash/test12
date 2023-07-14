@@ -45,14 +45,14 @@ echo "\e[1;33mInstallation software-properties-common is complete\e[0m"
 
 echo "\e[1;34mInstalling jenkins\e[0m"
 apt update
-apt install default-jre
+apt install -y default-jre
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 apt update
-apt install jenkins
+apt install -y jenkins
 systemctl start jenkins
 echo "\e[1;33mInstallation jenkins is complete\e[0m"
 
@@ -66,8 +66,8 @@ echo \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt update
-apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-#apt install docker-compose
+apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+apt install -y docker-compose
 echo "\e[1;33mInstallation docker and docker-compose are complete\e[0m"
 
 echo "\e[1;31mFull install is complete! Congratulations!\e[0m"

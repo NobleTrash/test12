@@ -5,7 +5,7 @@ networks:
 
 services:
   db:
-    container_name: db
+    container_name: db-${NAME}
     image: mysql:latest
     volumes:
       - ./db/db_data:/var/lib/mysql
@@ -15,6 +15,8 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
+    env_file:
+      - .env
     networks:
       - test12
 
@@ -30,14 +32,16 @@ services:
 #      - test12
 
   wordpress:
-    container_name: wordpress
+    container_name: wordpress-${NAME}
     depends_on:
       - db
     image: wordpress:latest
     volumes:
       - ./wp-content:/var/www/html/wp-content
+    env_file:
+      - .env
     ports:
-      - "8000:80"
+      - "-${WP-PORT}:80"
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
